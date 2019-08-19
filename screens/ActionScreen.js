@@ -1,14 +1,12 @@
 import React from 'react';
-import { Container, View,Body, Content, Text, Input } from 'native-base';
-import ActionBody from '../components/ActionBody';
+import { Container, View } from 'native-base';
+import ToDoBody from '../components/ToDoBody';
 
  class ActionScreen extends React.Component{
     render(){
     return (
         <Container>
-            <View>
-                <Text>Actions</Text>
-            </View>
+            <ToDoBody />
         </Container>
     )
 }
