@@ -1,15 +1,24 @@
 import React from 'react';
-import { Container } from 'native-base';
-import ActionBody from '../components/ActionBody';
+import { ScrollView, StyleSheet } from 'react-native';
+import ToDoBody from '../components/ToDoBody';
 
 const ActionScreen = () => {
     return (
-        <Container>
-            <ActionBody />
-        </Container>
+        <ScrollView style={styles.container}>
+            <ToDoBody />
+        </ScrollView>
     )
 }
 
 ActionScreen.navigationOptions = {
     title: 'Actions',
 };
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#fff',
+    },
+});
+
+export default ActionScreen;
