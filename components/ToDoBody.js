@@ -22,8 +22,8 @@ class ToDoBody extends Component {
     };
 
     render() {
-        const { todos } = ToDoStore;
-        console.log('todos:', todos);
+        const { ToDos } = ToDoStore;
+        console.log('ToDos:', ToDos);
 
         return (
             <View>

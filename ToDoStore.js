@@ -8,12 +8,12 @@ const ToDoStore = types.model('ToDos', {
     ToDos: types.array(ToDo)
 })
 .actions(self => ({
-    addAction(ToDo) {
-        self.actions.push(ToDo)
+    addToDo(ToDo) {
+        self.ToDos.push(ToDo)
     }
 }))
 .create({
     ToDos: [{ title: "Hello there" }]
-})
+});
 
 export default ToDoStore;
