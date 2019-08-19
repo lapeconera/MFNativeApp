@@ -20,6 +20,10 @@
     "expo-constants": "6.0.0",
     "expo-font": "~6.0.0",
     "expo-web-browser": "6.0.0",
+<<<<<<< HEAD
+=======
+    "mobx": "^5.13.0",
+>>>>>>> 1eb023d0cc176d54a7425c95375c40265cb157d3
     "native-base": "^2.13.5",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
