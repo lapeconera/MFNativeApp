@@ -2,13 +2,15 @@ import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import ToDoBody from '../components/ToDoBody';
 
-const ActionScreen = () => {
+ class ActionScreen extends React.Component{
+    render(){
     return (
         <ScrollView style={styles.container}>
             <ToDoBody />
         </ScrollView>
     )
 }
+ }
 
 ActionScreen.navigationOptions = {
     title: 'Actions',

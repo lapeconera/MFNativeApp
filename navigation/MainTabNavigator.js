@@ -1,11 +1,11 @@
 import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
-
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+import ActionScreen from '../screens/ActionScreen';
+import SearchScreen from '../screens/SearchScreen';
+import ListScreen from '../screens/ListScreen';
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -13,9 +13,7 @@ const config = Platform.select({
 });
 
 const HomeStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-  },
+  {Home: HomeScreen},
   config
 );
 
@@ -26,51 +24,55 @@ HomeStack.navigationOptions = {
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-home`
+          : 'md-home'
       }
     />
   ),
 };
-
 HomeStack.path = '';
 
-const LinksStack = createStackNavigator(
-  {
-    Links: LinksScreen,
-  },
+const ActionStack = createStackNavigator(
+  {Action: ActionScreen},
   config
 );
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+ActionStack.navigationOptions = {
+  tabBarLabel: 'Add',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-link' : 'md-link'} />
+  <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-add' : 'md-add'} />
   ),
 };
+ActionStack.path = '';
 
-LinksStack.path = '';
-
-const SettingsStack = createStackNavigator(
-  {
-    Settings: SettingsScreen,
-  },
+const ListStack = createStackNavigator(
+  {List: ListScreen},
   config
 );
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+ListStack.navigationOptions = {
+  tabBarLabel: 'List',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-options' : 'md-options'} />
+  <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-list' : 'md-list'} />
   ),
 };
+ListStack.path = '';
 
-SettingsStack.path = '';
+const SearchStack = createStackNavigator(
+  {Search: SearchScreen},
+  config
+);
+SearchStack.navigationOptions = {
+  tabBarLabel: 'Search',
+  tabBarIcon: ({ focused }) => (
+  <TabBarIcon focused={focused} name={Platform.OS === 'ios' ? 'ios-search' : 'md-search'} />
+  ),
+};
+SearchStack.path = '';
 
 const tabNavigator = createBottomTabNavigator({
   HomeStack,
-  LinksStack,
-  SettingsStack,
+  ActionStack,
+  ListStack,
+  SearchStack,
 });
 
 tabNavigator.path = '';
