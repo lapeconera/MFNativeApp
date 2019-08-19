@@ -13,7 +13,7 @@ const ToDoStore = types.model('ToDos', {
     }
 }))
 .create({
-    ToDos: [{ title: "Hello there" }]
+    ToDos: []
 });
 
 export default ToDoStore;

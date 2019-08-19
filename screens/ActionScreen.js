@@ -1,13 +1,13 @@
 import React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { Container, View } from 'native-base';
 import ToDoBody from '../components/ToDoBody';
 
  class ActionScreen extends React.Component{
     render(){
     return (
-        <ScrollView style={styles.container}>
+        <Container>
             <ToDoBody />
-        </ScrollView>
+        </Container>
     )
 }
  }
