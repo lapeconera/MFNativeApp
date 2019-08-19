@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Body, Text, ListItem } from 'native-base';
+import { Content, Body, Text, ListItem } from 'native-base';
 import { StyleSheet } from 'react-native';
 import ToDoStore from '../ToDoStore';
 
@@ -8,15 +8,13 @@ class ListScreen extends Component {
         const { ToDos } = ToDoStore;
 
         return (
-            <Container>
-                    <Body>
-                    <ListItem>
-                        {ToDos.map((ToDo, index) =>                 
-                            <Text  key={index}>{ToDo.title}</Text>
-                        )}
-                    </ListItem>
-                    </Body>
-            </Container>
+            <Content>
+                <Body>
+                    {ToDos.map((ToDo, index) =>                 
+                        <ListItem><Text  key={index}>{ToDo.title}</Text></ListItem>
+                    )}
+                </Body>
+            </Content>
         )
     }
 }
