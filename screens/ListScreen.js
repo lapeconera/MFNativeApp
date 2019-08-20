@@ -1,34 +1,26 @@
 import React, { Component } from 'react';
-import { Content, Body, Text, ListItem , View } from 'native-base';
-import { StyleSheet } from 'react-native';
-import ToDoStore from '../ToDoStore';
 import { observer } from 'mobx-react';
+import { Container, Content, List, Text } from 'native-base';
+import ToDoStore from '../ToDoStore';
+import ToDoItem from '../components/ToDoItem';
 
 class ListScreen extends Component {
     render() {
         const { ToDos } = ToDoStore;
-
+        // console.log(ToDos[0].title)
         return (
-            <Content>
-                <Body>
-                    <View>
-                    {ToDos.map((ToDo, index) =>                 
-                        <ListItem><Text  key={index}>{ToDo.title}</Text></ListItem>
-                    )}
-                    </View>
-                </Body>
-            </Content>
+            <Container>
+                <Content>
+                    <List>
+                        {ToDos.map((ToDo, index) =>                 
+                            <ToDoItem key={index} ToDo={ToDo} />
+                        )}
+                    </List>
+                </Content>
+            </Container>
+
         )
     }
 }
-
-const styles = StyleSheet.create({
-    container: {
-        width: 100,
-        height: 600,
-        justifyContent: "center",
-        alignItems: "center",
-    }
-})
 
 export default observer(ListScreen);

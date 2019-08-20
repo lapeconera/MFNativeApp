@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
-import { Content, Body, Text, ListItem, CheckBox, Icon } from 'native-base';
+import React from 'react';
+import { List, ListItem, CheckBox, Icon, Text, Button } from 'native-base';
 
-class ToDoItem extends Component {
-    
-    
-    render() {
-        return (
-            <Content>
-                <ListItem>
-                    <CheckBox checked={true} />
-                        <Body>
-                            <Text>Daily Stand Up</Text>
-                        </Body>
-                        <Icon name="trash"></Icon>
-                </ListItem>
-            </Content>
-        )
-    }
+const ToDoItem = ({ToDo}) => {
+    return (
+        <ListItem>
+            <CheckBox
+                onPress = { () => console.log(`show this completed: ${ToDo}`) }
+            />
+            <Text>{ToDo.title}</Text>
+            <Button
+                transparent
+                onPress = { () => console.log(`This has been cancelled.`) }
+            >
+                <Icon name = { 'trash' } />                
+            </Button>
+        </ListItem> 
+    )
 }
 
 export default ToDoItem;

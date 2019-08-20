@@ -23,7 +23,7 @@ class ToDoBody extends Component {
 
     render() {
         const { ToDos } = ToDoStore;
-        console.log('ToDos:', ToDos);
+        // console.log('ToDos:', ToDos);
 
         return (
             <Content>
@@ -34,13 +34,12 @@ class ToDoBody extends Component {
                         value={this.state.title}
                         onChangeText={ (value) => this.onChangeText("title", value)}
                     />
-              
-                </View>
                 <Button 
                         onPress={this.addToDo} style={styles.button}
-                >
-                        <Text style={styles.buttonText}>Submit</Text>
+                    >
+                    <Text style={styles.buttonText}>Submit</Text>
                 </Button>
+                </View>
             </Content>
         )
     }
