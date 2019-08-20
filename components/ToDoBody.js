@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text,Icon, Input, Button, Content, Item } from 'native-base';
+import { View, Icon, Input, Content, Item } from 'native-base';
 import { StyleSheet } from 'react-native';
 import ToDoStore from '../ToDoStore';
-import { observable, action } from 'mobx';
-import { observer } from 'mobx-react';
 import uuidv4 from "uuid/v4"
-
 
 const initialState = {
     id: null,

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Modal, TouchableHighlight, View, StyleSheet } from "react-native";
-import { Container, ListItem, CheckBox, Icon, Text, Button } from 'native-base';
+import { ListItem, CheckBox, Icon, Text, Button } from 'native-base';
 import ToDoStore from '../ToDoStore';
 
 class ToDoItem extends Component {
@@ -14,7 +14,7 @@ class ToDoItem extends Component {
     }
 
     modal = () => (
-            <Modal
+        <Modal
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
@@ -22,18 +22,16 @@ class ToDoItem extends Component {
         >
             <View style={{margin: 100}}>
                 <View>
-                <Text>Hello World!</Text>
-
-                <TouchableHighlight
-                    onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
+                    <Text>Hello World!</Text>
+                    <TouchableHighlight
+                        onPress={() => {
+                        this.setModalVisible(!this.state.modalVisible);
                     }}>
-                    <Text>Hide Modal</Text>
-                </TouchableHighlight>
+                        <Text>Hide Modal</Text>
+                    </TouchableHighlight>
                 </View>
             </View>
         </Modal>
-
     )
 
     deleteToDo = (ToDo) => {
@@ -52,7 +50,7 @@ class ToDoItem extends Component {
                 { !this.state.modalVisible ? 
                 <ListItem>
                     <CheckBox
-                        onPress = { () => console.log(`show this completed: ${ToDo}`) }
+                        onPress = { () => console.log(`show this completed: `) }
                     />
                     <Text>{this.props.ToDo.title}</Text>
                     <Button
@@ -61,13 +59,10 @@ class ToDoItem extends Component {
                     >
                         <Icon name = { 'trash' } />                
                     </Button>
-                    <Button
-                        transparent
-    
-                    >
+                    <Button transparent>
                         <Icon name = { 'create' } onPress={() => {
                             this.setModalVisible(true);
-                        }} 
+                            }} 
                         />                
                     </Button>
                 </ListItem> 
@@ -82,16 +77,12 @@ class ToDoItem extends Component {
     
 }
 
-export default observer(ToDoItem);
-
 const styles = StyleSheet.create({
-
-    
-        modalmessage:{
-            flex:1,
-            alignItems: 'center',
-            margin: '30%',
-
-        }
-    
+    modalmessage:{
+        flex:1,
+        alignItems: 'center',
+        margin: '30%',
+    }
 })
+
+export default observer(ToDoItem);
