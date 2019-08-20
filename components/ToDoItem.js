@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Modal, TouchableHighlight, View, StyleSheet } from "react-native";
-import { Container, ListItem, CheckBox, Icon, Text, Button } from 'native-base';
+import { Container, ListItem, CheckBox,Item, Icon, Text, Button,Input } from 'native-base';
 import ToDoStore from '../ToDoStore';
 
 class ToDoItem extends Component {
@@ -9,7 +9,20 @@ class ToDoItem extends Component {
         super(props)
         this.state = {
             modalVisible: false,
+            inputValue: "",
         };
+    }
+
+    async componentDidMount() {
+        await this.setState({ inputValue: this.props.ToDo.title })
+    }
+
+    editAction = () => {
+
+        this.setModalVisible(!this.state.modalVisible);
+        const{Todos} = TodoStore;
+  
+
     }
 
     modal = () => (
@@ -21,14 +34,13 @@ class ToDoItem extends Component {
         >
             <View style={{margin: 100}}>
                 <View>
-                <Text>Hello World!</Text>
-
-                <TouchableHighlight
-                    onPress={() => {
-                    this.setModalVisible(!this.state.modalVisible);
-                    }}>
-                    <Text>Hide Modal</Text>
-                </TouchableHighlight>
+                    <Item style={styles.searchContainer} searchBar rounded>
+                        <Input 
+                        placeholder="Edit" 
+                        value={this.state.inputValue}
+                        onChangeText = {(value) => this.setState({inputValue: value})}/>
+                        <Icon name="ios-checkmark" onPress={this.editAction}/>
+                    </Item>
                 </View>
             </View>
         </Modal>
@@ -90,6 +102,12 @@ const styles = StyleSheet.create({
             alignItems: 'center',
             margin: '30%',
 
-        }
+        },
+        searchContainer: {
+            height: 40,
+            borderColor: 'red',
+            borderWidth: 1000,
+            width:200
+            },
     
 })

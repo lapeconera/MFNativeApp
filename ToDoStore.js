@@ -17,7 +17,7 @@ const ToDoStore = types.model('ToDos', {
             return todo.id !== ToDo.id 
         })
         
-
+    
         
     }
 }))
