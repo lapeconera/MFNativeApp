@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Input, Button, Content } from 'native-base';
 import { StyleSheet } from 'react-native';
 import ToDoStore from '../ToDoStore';
-import { observable, action } from 'mobx';
-import { observer } from 'mobx-react';
 
 const initialState = {
     title: "",
@@ -22,11 +20,9 @@ class ToDoBody extends Component {
     };
 
     render() {
-        const { ToDos } = ToDoStore;
-        // console.log('ToDos:', ToDos);
 
         return (
-            <Content>
+            <Content style={styles.container}>
                 <View>
                     <Input 
                         style={styles.inputStyle}
@@ -34,11 +30,12 @@ class ToDoBody extends Component {
                         value={this.state.title}
                         onChangeText={ (value) => this.onChangeText("title", value)}
                     />
-                <Button 
-                        onPress={this.addToDo} style={styles.button}
+                    <Button 
+                        onPress={this.addToDo} 
+                        style={styles.button}
                     >
-                    <Text style={styles.buttonText}>Submit</Text>
-                </Button>
+                        <Text style={styles.buttonText}>Submit</Text>
+                    </Button>
                 </View>
             </Content>
         )
@@ -46,19 +43,25 @@ class ToDoBody extends Component {
 }
 
 const styles = StyleSheet.create({
-  inputStyle:{
-    height: 50,
-    width: 200,
-  },
-  action: {
-    fontSize: 24,
-  },
-  button: {
-    width: 100,
-  },
-  buttonText: { 
-    color: '#fff',
-  }
+    container: {
+        flex: 1,
+    },
+    inputStyle:{
+        height: 50,
+    },
+    action: {
+        fontSize: 24,
+    },
+    button: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 300,
+
+    },
+    buttonText: { 
+        color: '#fff',
+    }
 });
 
 

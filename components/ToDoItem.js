@@ -1,19 +1,33 @@
 import React from 'react';
-import { List, ListItem, CheckBox, Icon, Text, Button } from 'native-base';
+import { ListItem, CheckBox, Icon, Text, Button, Right, Left, Body } from 'native-base';
+
 
 const ToDoItem = ({ToDo}) => {
+    state = {
+        checked: true,
+    }
+
     return (
         <ListItem>
-            <CheckBox
-                onPress = { () => console.log(`show this completed: ${ToDo}`) }
-            />
-            <Text>{ToDo.title}</Text>
-            <Button
-                transparent
-                onPress = { () => console.log(`This has been cancelled.`) }
-            >
-                <Icon name = { 'trash' } />                
-            </Button>
+            <Left>
+                <CheckBox
+                    value={this.state.checked}
+                    onPress={() => console.log(`checked`) }
+                />
+            </Left>
+            <Body>
+                <Text>
+                    {ToDo.title}
+                </Text>
+            </Body>
+            <Right>
+                <Button
+                    transparent
+                    onPress={ () => console.log(`delete this todo`) }
+                >
+                    <Icon name = { 'trash' } />                
+                </Button>
+            </Right>
         </ListItem> 
     )
 }
