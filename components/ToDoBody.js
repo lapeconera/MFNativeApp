@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { View, Text, Input, Button, Content } from 'native-base';
 import { StyleSheet } from 'react-native';
 import ToDoStore from '../ToDoStore';
-import { observable, action } from 'mobx';
-import { observer } from 'mobx-react';
 
 const initialState = {
     title: "",
@@ -23,7 +21,6 @@ class ToDoBody extends Component {
 
     render() {
         const { ToDos } = ToDoStore;
-        // console.log('ToDos:', ToDos);
 
         return (
             <Content>

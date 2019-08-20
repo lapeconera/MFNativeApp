@@ -1,5 +1,5 @@
 import React from 'react';
-import { List, ListItem, CheckBox, Icon, Text, Button } from 'native-base';
+import { ListItem, CheckBox, Icon, Text, Button } from 'native-base';
 
 const ToDoItem = ({ToDo}) => {
     return (

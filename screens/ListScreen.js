@@ -7,7 +7,7 @@ import ToDoItem from '../components/ToDoItem';
 class ListScreen extends Component {
     render() {
         const { ToDos } = ToDoStore;
-        // console.log(ToDos[0].title)
+        
         return (
             <Container>
                 <Content>
@@ -18,7 +18,6 @@ class ListScreen extends Component {
                     </List>
                 </Content>
             </Container>
-
         )
     }
 }
