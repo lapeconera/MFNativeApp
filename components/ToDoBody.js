@@ -6,6 +6,7 @@ import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
 import uuidv4 from "uuid/v4"
 
+
 const initialState = {
     id: null,
     title: "",
@@ -27,7 +28,6 @@ class ToDoBody extends Component {
 
     render() {
         const { ToDos } = ToDoStore;
-        // console.log('ToDos:', ToDos);
 
         return (
           <View style={styles.wholeStyle}>

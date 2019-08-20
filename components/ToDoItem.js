@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
 import { Modal, TouchableHighlight, View, StyleSheet } from "react-native";
@@ -32,6 +33,7 @@ class ToDoItem extends Component {
                 </View>
             </View>
         </Modal>
+
     )
 
     deleteToDo = (ToDo) => {
