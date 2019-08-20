@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {View,Text,StyleSheet} from 'react-native';
 import { Header,Item,Icon,Input,Button } from "native-base";
 import SearchBody from '../components/SearchBody';
+import ToDoStore from '../ToDoStore';
 
 export class SearchScreen extends React.Component {
     state = {
@@ -9,14 +10,19 @@ export class SearchScreen extends React.Component {
         data: {},
         onCall: true,
     }
+ 
     searchAction = () =>{
+        {console.log(ToDoStore)}
+
         this.setState({onCall:true});
         if(this.state.actionSearch === ""){
             return;
         }
         var self = this;
+
         self.setState({data: "Name"})
         self.setState({onCall: false});
+        
     }
 
     renderBody = () =>{
@@ -27,7 +33,7 @@ export class SearchScreen extends React.Component {
         }
         else{
             return(
-                <SearchBody data={this.state.data}/>
+                <SearchBody data={this.state.data} totos={this.state.onCall}/>
             )
         }
     }

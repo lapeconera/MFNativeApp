@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Content, Body, Text, ListItem } from 'native-base';
+import { Content, Body, Text, ListItem , View } from 'native-base';
 import { StyleSheet } from 'react-native';
 import ToDoStore from '../ToDoStore';
+import { observer } from 'mobx-react';
 
 class ListScreen extends Component {
     render() {
@@ -10,9 +11,11 @@ class ListScreen extends Component {
         return (
             <Content>
                 <Body>
+                    <View>
                     {ToDos.map((ToDo, index) =>                 
                         <ListItem><Text  key={index}>{ToDo.title}</Text></ListItem>
                     )}
+                    </View>
                 </Body>
             </Content>
         )
@@ -28,4 +31,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ListScreen;
+export default observer(ListScreen);
