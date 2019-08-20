@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Input, Button, Content } from 'native-base';
+import { View, Text,Icon, Input, Button, Content, Item } from 'native-base';
 import { StyleSheet } from 'react-native';
 import ToDoStore from '../ToDoStore';
 
@@ -22,46 +22,61 @@ class ToDoBody extends Component {
     render() {
 
         return (
-            <Content style={styles.container}>
-                <View>
+          <View style={styles.wholeStyle}>
+            <Content>
+              
+            <View style={styles.container}>
+            <Item style={styles.searchContainer} searchBar rounded>
+            
                     <Input 
                         style={styles.inputStyle}
                         placeholder="What have you done?"
                         value={this.state.title}
                         onChangeText={ (value) => this.onChangeText("title", value)}
                     />
-                    <Button 
-                        onPress={this.addToDo} 
-                        style={styles.button}
-                    >
-                        <Text style={styles.buttonText}>Submit</Text>
-                    </Button>
+                  <Icon name="ios-add"  onPress={this.addToDo}/>    
+                </Item>
+      
                 </View>
+                
             </Content>
+            </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
-    inputStyle:{
-        height: 50,
-    },
-    action: {
-        fontSize: 24,
-    },
-    button: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: 300,
+  wholeStyle: {
+    flex: 1,
+    backgroundColor: '#fbefdacf',
+  },
+  container: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: '20%',
+      marginHorizontal: '10%'
+  },
+  searchContainer: {
+  height: 40,
+  borderColor: 'red',
+  borderWidth: 40,
 
+  },
+  inputStyle:{
+      color: '#234644',
     },
-    buttonText: { 
-        color: '#fff',
-    }
+  inputStyle:{
+    height: 50,
+    width: 200,
+    
+  },
+  action: {
+    fontSize: 24,
+  },
+ 
+  buttonText: { 
+    color: '#fff',
+  }
 });
 
 
