@@ -3,6 +3,7 @@ import {View,Text,StyleSheet} from 'react-native';
 import { Header,Item,Icon,Input,Button } from "native-base";
 import SearchBody from '../components/SearchBody';
 import ToDoStore from '../ToDoStore';
+import { observer } from 'mobx-react';
 
 export class SearchScreen extends React.Component {
     state = {
@@ -18,11 +19,16 @@ export class SearchScreen extends React.Component {
         if(this.state.actionSearch === ""){
             return;
         }
-        var self = this;
-
-        self.setState({data: "Name"})
-        self.setState({onCall: false});
         
+        let self = this;
+        const { ToDos } = ToDoStore;
+        {ToDos.map((ToDo,index) =>  
+            {this.state.actionSearch === ToDo.title?  
+                self.setState({data: ToDo.title})
+                :null}               
+  
+        )}
+        self.setState({onCall: false});
     }
 
     renderBody = () =>{
@@ -59,7 +65,7 @@ export class SearchScreen extends React.Component {
     }
 }
 
-export default SearchScreen
+export default observer(SearchScreen)
 
 const styles = StyleSheet.create({
     wholeStyle: {
