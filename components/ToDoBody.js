@@ -4,20 +4,24 @@ import { StyleSheet } from 'react-native';
 import ToDoStore from '../ToDoStore';
 import { observable, action } from 'mobx';
 import { observer } from 'mobx-react';
+import uuidv4 from "uuid/v4"
 
 const initialState = {
+    id: null,
     title: "",
 };
 
 class ToDoBody extends Component {
     state = initialState;
 
-    onChangeText = (key, value) => {
-        this.setState({[key]: value});
+    onChangeText = (value) => {
+        this.setState({
+          title: value
+        });
     };
 
     addToDo = () => {
-        ToDoStore.addToDo(this.state)
+        ToDoStore.addToDo({ id: uuidv4(), title: this.state.title})
         this.setState(initialState)
     };
 
@@ -28,21 +32,17 @@ class ToDoBody extends Component {
         return (
           <View style={styles.wholeStyle}>
             <Content>
-              
             <View style={styles.container}>
             <Item style={styles.searchContainer} searchBar rounded>
-            
                     <Input 
                         style={styles.inputStyle}
                         placeholder="What have you done?"
                         value={this.state.title}
-                        onChangeText={ (value) => this.onChangeText("title", value)}
+                        onChangeText={ (value) => this.onChangeText(value)}
                     />
                   <Icon name="ios-add"  onPress={this.addToDo}/>    
                 </Item>
-      
                 </View>
-                
             </Content>
             </View>
         )
