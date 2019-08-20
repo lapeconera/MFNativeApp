@@ -34,7 +34,7 @@ class ToDoBody extends Component {
                         value={this.state.title}
                         onChangeText={ (value) => this.onChangeText("title", value)}
                     />
-                    <Button 
+                <Button 
                         onPress={this.addToDo} style={styles.button}
                     >
                     <Text style={styles.buttonText}>Submit</Text>

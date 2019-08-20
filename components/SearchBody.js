@@ -1,6 +1,7 @@
 import React from 'react';
 import {ScrollView,Text,View} from 'react-native';
 import {Container, Header, Content, Card, CardItem, Body} from 'native-base';
+import ToDoStore from '../ToDoStore';
 
 class SearchBody extends React.Component{
     render(){
