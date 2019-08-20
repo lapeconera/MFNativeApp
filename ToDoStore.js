@@ -15,12 +15,26 @@ const ToDoStore = types.model('ToDos', {
     deleteToDo(ToDo) {
         self.ToDos = self.ToDos.filter(todo => {
             return todo.id !== ToDo.id 
+           
         })
-        
-    
-        
+       
+    },
+    editToDo(ToDo,updateTodo,) {
+        self.ToDos.map(todo => {
+            console.log("1",todo.title )
+            console.log("2",ToDo )
+            if ( todo.title === updateTodo){
+                return "Hello";
+            }else{
+                return todo.title = updateTodo  
+            } 
+        });
+        console.log("3",self.ToDos )
     }
+   
+
 }))
+
 .create({
     ToDos: [
         {

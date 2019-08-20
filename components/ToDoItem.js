@@ -17,14 +17,9 @@ class ToDoItem extends Component {
         await this.setState({ inputValue: this.props.ToDo.title })
     }
 
-    editAction = () => {
+    
 
-        this.setModalVisible(!this.state.modalVisible);
-        const{Todos} = TodoStore;
-  
-
-    }
-
+    
     modal = () => (
             <Modal
             animationType="slide"
@@ -38,14 +33,19 @@ class ToDoItem extends Component {
                         <Input 
                         placeholder="Edit" 
                         value={this.state.inputValue}
-                        onChangeText = {(value) => this.setState({inputValue: value})}/>
-                        <Icon name="ios-checkmark" onPress={this.editAction}/>
+                        onChangeText = {(inputValue) => this.setState({inputValue})}/>
+                        <Icon name="ios-checkmark" onPress={()=> this.editToDo(this.props.ToDo)}/>
+                   
                     </Item>
                 </View>
             </View>
         </Modal>
     )
 
+    editToDo = (ToDo) => {
+        const updateTodo = this.state.inputValue
+        ToDoStore.editToDo(ToDo,updateTodo)
+    }
     deleteToDo = (ToDo) => {
         ToDoStore.deleteToDo(ToDo)
     };
