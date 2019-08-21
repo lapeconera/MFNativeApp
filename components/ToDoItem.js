@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import {observer} from 'mobx-react';
 import { Modal, View, StyleSheet } from "react-native";
-import { Item, Icon, Input } from 'native-base';
+import { Item, Icon, Input, ListItem, Text, Button, CheckBox } from 'native-base';
 import ToDoStore from '../ToDoStore';
 
 class ToDoItem extends Component {
@@ -9,6 +10,7 @@ class ToDoItem extends Component {
         this.state = {
             modalVisible: false,
             inputValue: "",
+            isCompleted: false,
         };
     }
 
@@ -53,13 +55,18 @@ class ToDoItem extends Component {
         });
     }
 
+    checkBoxChange = () => {
+        this.setState({ isCompleted: !this.state.isCompleted})
+    }
+
     render() {
         return (
             <View>
                 { !this.state.modalVisible ? 
                     <ListItem>
                         <CheckBox
-                            onPress = { () => console.log(`This has been checked`) }
+                            checked={this.state.isCompleted}
+                            onPress={() => this.checkBoxChange()}
                         />
                         <Text>{this.props.ToDo.title}</Text>
                         <Button
@@ -99,7 +106,10 @@ const styles = StyleSheet.create({
         borderColor: 'red',
         borderWidth: 1000,
         width:200
+    },
+    completed: {
+        textDecorationLine: "line-through",
     }
 });
 
-export default ToDoItem;
+export default observer(ToDoItem);
