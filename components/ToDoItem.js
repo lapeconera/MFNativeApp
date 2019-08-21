@@ -10,7 +10,7 @@ class ToDoItem extends Component {
         this.state = {
             modalVisible: false,
             inputValue: "",
-            isCompleted: false,
+            isChecked: false,
         };
     }
 
@@ -49,6 +49,12 @@ class ToDoItem extends Component {
         ToDoStore.deleteToDo(ToDo);
     }
 
+    deleteSelected = (ToDo) => {
+        if(this.state.isChecked === true) {
+            ToDoStore.deleteToDo(ToDo)
+        }
+    }
+
     setModalVisible = (visible) => {
         this.setState({
             modalVisible: visible
@@ -56,7 +62,7 @@ class ToDoItem extends Component {
     }
 
     checkBoxChange = () => {
-        this.setState({ isCompleted: !this.state.isCompleted})
+        this.setState({ isChecked: !this.state.isChecked})
     }
 
     render() {
@@ -65,7 +71,7 @@ class ToDoItem extends Component {
                 { !this.state.modalVisible ? 
                     <ListItem>
                         <CheckBox
-                            checked={this.state.isCompleted}
+                            checked={this.state.isChecked}
                             onPress={() => this.checkBoxChange()}
                         />
                         <Text>{this.props.ToDo.title}</Text>
