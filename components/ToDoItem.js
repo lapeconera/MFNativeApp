@@ -16,17 +16,14 @@ class ToDoItem extends Component {
     async componentDidMount() {
         await this.setState({ inputValue: this.props.ToDo.title })
     }
-
-    
-
-    
+ 
     modal = () => (
             <Modal
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
             style={styles.modalmessage}
-        >
+            >
             <View style={{margin: 100}}>
                 <View>
                     <Item style={styles.searchContainer} searchBar rounded>
@@ -35,7 +32,6 @@ class ToDoItem extends Component {
                         value={this.state.inputValue}
                         onChangeText = {(inputValue) => this.setState({inputValue})}/>
                         <Icon name="ios-checkmark" onPress={()=> this.editToDo(this.props.ToDo)}/>
-                   
                     </Item>
                 </View>
             </View>
@@ -43,6 +39,7 @@ class ToDoItem extends Component {
     )
 
     editToDo = (ToDo) => {
+        this.setModalVisible(!this.state.modalVisible);
         const updateTodo = this.state.inputValue
         ToDoStore.editToDo(ToDo,updateTodo)
     }
