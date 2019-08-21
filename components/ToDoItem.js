@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Modal, TouchableHighlight, View, StyleSheet } from "react-native";
-import { ListItem, CheckBox, Item, Icon, Text, Button, Input } from 'native-base';
+import { Modal, View, StyleSheet } from "react-native";
+import { Item, Icon, Input } from 'native-base';
 import ToDoStore from '../ToDoStore';
 
 class ToDoItem extends Component {
@@ -13,16 +13,16 @@ class ToDoItem extends Component {
     }
 
     async componentDidMount() {
-        await this.setState({ inputValue: this.props.ToDo.title })
+        await this.setState({ inputValue: this.props.ToDo.title });
     }
-
-    modal = () => {(
-        <Modal
-            animationType="slide"
-            transparent={false}
-            visible={this.state.modalVisible}
-            style={styles.modalmessage}
-        >
+ 
+    modal = () => (
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={this.state.modalVisible}
+                style={styles.modalmessage}
+            >
             <View style={{margin: 100}}>
                 <View>
                     <Item style={styles.searchContainer} searchBar rounded>
@@ -31,27 +31,21 @@ class ToDoItem extends Component {
                         value={this.state.inputValue}
                         onChangeText = {(inputValue) => this.setState({inputValue})}/>
                         <Icon name="ios-checkmark" onPress={()=> this.editToDo(this.props.ToDo)}/>
-                   
                     </Item>
                 </View>
             </View>
         </Modal>
-    )}
-
-    // <TouchableHighlight
-    //     onPress={ () => {
-    //     this.setModalVisible(!this.state.modalVisible);
-    // }}>
-    //     <Text>Hide Modal</Text>
-    // </TouchableHighlight>
+    );
 
     editToDo = (ToDo) => {
-        const updateTodo = this.state.inputValue
-        ToDoStore.editToDo(ToDo,updateTodo)
+        this.setModalVisible(!this.state.modalVisible);
+        const updateTodo = this.state.inputValue;
+        ToDoStore.editToDo(ToDo,updateTodo);
     }
+
     deleteToDo = (ToDo) => {
-        ToDoStore.deleteToDo(ToDo)
-    };
+        ToDoStore.deleteToDo(ToDo);
+    }
 
     setModalVisible = (visible) => {
         this.setState({
@@ -63,33 +57,34 @@ class ToDoItem extends Component {
         return (
             <View>
                 { !this.state.modalVisible ? 
-                <ListItem>
-                    <CheckBox
-                        onPress = { () => console.log(`show this completed: `) }
-                    />
-                    <Text>{this.props.ToDo.title}</Text>
-                    <Button
-                        transparent
-                        onPress = {() => this.deleteToDo(this.props.ToDo)}
-                    >
-                        <Icon name = { 'trash' } />                
-                    </Button>
-                    <Button transparent>
-                        <Icon name = { 'create' } onPress={() => {
-                            this.setModalVisible(true);
+                    <ListItem>
+                        <CheckBox
+                            onPress = { () => console.log(`This has been checked`) }
+                        />
+                        <Text>{this.props.ToDo.title}</Text>
+                        <Button
+                            transparent
+                            onPress = {() => this.deleteToDo(this.props.ToDo)}
+                        >
+                            <Icon name = { 'trash' } />                
+                        </Button>
+                        <Button 
+                            transparent
+                            onPress={() => {
+                                this.setModalVisible(true);
                             }} 
-                        />                
-                    </Button>
-                </ListItem> 
+                        >
+                            <Icon name = { 'create' } />                
+                        </Button>
+                    </ListItem> 
                 :
-                <View>
-                { this.modal() }
-                </View>
+                    <View>
+                        { this.modal() }
+                    </View>
                 }
             </View>
         )
     }
-    
 }
 
 const styles = StyleSheet.create({
