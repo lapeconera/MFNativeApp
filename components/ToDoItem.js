@@ -3,6 +3,8 @@ import {observer} from 'mobx-react';
 import { Modal, View, StyleSheet } from "react-native";
 import { Item, Icon, Input, ListItem, Text, Button, CheckBox } from 'native-base';
 import ToDoStore from '../ToDoStore';
+import Swipeout from 'react-native-swipeout';
+
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -17,14 +19,14 @@ class ToDoItem extends Component {
     async componentDidMount() {
         await this.setState({ inputValue: this.props.ToDo.title });
     }
- 
     modal = () => (
             <Modal
-                animationType="slide"
-                transparent={false}
-                visible={this.state.modalVisible}
-                style={styles.modalmessage}
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            style={styles.modalmessage}
             >
+
             <View style={{margin: 100}}>
                 <View>
                     <Item style={styles.searchContainer} searchBar rounded>
@@ -41,13 +43,18 @@ class ToDoItem extends Component {
 
     editToDo = (ToDo) => {
         this.setModalVisible(!this.state.modalVisible);
-        const updateTodo = this.state.inputValue;
-        ToDoStore.editToDo(ToDo,updateTodo);
-    }
+        const updateTodo = this.state.inputValue
+        ToDoStore.editToDo(ToDo,updateTodo)
+    };
 
     deleteToDo = (ToDo) => {
         ToDoStore.deleteToDo(ToDo);
     }
+
+    doneToDo = (ToDo) => {
+        ToDoStore.doneToDo(ToDo)
+    };
+   
 
     setModalVisible = (visible) => {
         this.setState({
@@ -60,30 +67,40 @@ class ToDoItem extends Component {
     }
 
     render() {
+        let swipeBtns1 = [
+            {
+            text: 'Delete',
+            backgroundColor: '#fbefd9',
+            color: '#234544',
+            onPress: () => { this.deleteToDo(this.props.ToDo) }
+          },
+          {
+            text: 'Edit',
+            backgroundColor: '#234544',
+            onPress: () => { this.setModalVisible(true) }
+         },
+        ];
+        let swipeBtns2 = [
+            {
+                text: 'Done',
+                backgroundColor: '#fbefd9',
+                color: '#234544',
+                onPress: () => { this.doneToDo(this.props.ToDo) }
+              },
+        ]
         return (
             <View>
-                { !this.state.modalVisible ? 
-                    <ListItem>
-                        <CheckBox
-                            checked={this.state.isCompleted}
-                            onPress={() => this.checkBoxChange()}
-                        />
-                        <Text>{this.props.ToDo.title}</Text>
-                        <Button
-                            transparent
-                            onPress = {() => this.deleteToDo(this.props.ToDo)}
-                        >
-                            <Icon name = { 'trash' } />                
-                        </Button>
-                        <Button 
-                            transparent
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }} 
-                        >
-                            <Icon name = { 'create' } />                
-                        </Button>
-                    </ListItem> 
+                { !this.state.modalVisible ?
+               <Swipeout right={swipeBtns1}
+               left={swipeBtns2}
+               autoClose={true} 
+               backgroundColor= 'transparent'
+              >
+                   <View style={styles.Swipe}>
+                        <Text style={styles.SwipeText} >{this.props.ToDo.title}</Text>
+                        <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
+                    </View>
+                </Swipeout>  
                 :
                     <View>
                         { this.modal() }
@@ -95,21 +112,34 @@ class ToDoItem extends Component {
 }
 
 const styles = StyleSheet.create({
-    modalmessage:{
-        flex:1,
-        alignItems: 'center',
-        margin: '30%',
 
-    },
-    searchContainer: {
-        height: 40,
-        borderColor: 'red',
-        borderWidth: 1000,
-        width:200
-    },
-    completed: {
-        textDecorationLine: "line-through",
-    }
-});
+        modalmessage:{
+            flex:1,
+            alignItems: 'center',
+            margin: '30%',
+        },
+        searchContainer: {
+            height: 40,
+            borderColor: 'red',
+            borderWidth: 1000,
+            width:200
+            },
+        Swipe: {
+            paddingTop: 30,
+            marginHorizontal:30,
+        },
+        SwipeText: {
+            fontSize: 20,
+            fontWeight: '800',
+            color: 'grey',    
+        },
+        SwipeDate: {
+            fontSize: 13,
+            color: 'grey',
+            paddingTop: 30,
+            marginHorizontal:30,
+        }
+ })
 
 export default observer(ToDoItem);
+

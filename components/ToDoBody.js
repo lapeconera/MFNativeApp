@@ -7,6 +7,7 @@ import uuidv4 from "uuid/v4"
 const initialState = {
     id: null,
     title: "",
+    done: null,
 };
 
 class ToDoBody extends Component {
@@ -19,7 +20,7 @@ class ToDoBody extends Component {
     };
 
     addToDo = () => {
-        ToDoStore.addToDo({ id: uuidv4(), title: this.state.title})
+        ToDoStore.addToDo({ id: uuidv4(), title: this.state.title, done: false })
         this.setState(initialState)
     };
 
