@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { observer } from 'mobx-react';
-import { Modal, TouchableHighlight, View, StyleSheet } from "react-native";
-import { Container, ListItem, CheckBox,Item, Icon, Text, Button,Input } from 'native-base';
+import {observer} from 'mobx-react';
+import { Modal, View, StyleSheet } from "react-native";
+import { Item, Icon, Input, ListItem, Text, Button, CheckBox } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import Swipeout from 'react-native-swipeout';
 
@@ -12,11 +12,12 @@ class ToDoItem extends Component {
         this.state = {
             modalVisible: false,
             inputValue: "",
+            isCompleted: false,
         };
     }
 
     async componentDidMount() {
-        await this.setState({ inputValue: this.props.ToDo.title })
+        await this.setState({ inputValue: this.props.ToDo.title });
     }
     modal = () => (
             <Modal
@@ -24,7 +25,8 @@ class ToDoItem extends Component {
             transparent={false}
             visible={this.state.modalVisible}
             style={styles.modalmessage}
-        >
+            >
+
             <View style={{margin: 100}}>
                 <View>
                     <Item style={styles.searchContainer} searchBar rounded>
@@ -37,7 +39,7 @@ class ToDoItem extends Component {
                 </View>
             </View>
         </Modal>
-    )
+    );
 
     editToDo = (ToDo) => {
         this.setModalVisible(!this.state.modalVisible);
@@ -46,12 +48,10 @@ class ToDoItem extends Component {
     };
 
     deleteToDo = (ToDo) => {
-        ToDoStore.deleteToDo(ToDo)
-    };
+        ToDoStore.deleteToDo(ToDo);
+    }
 
     doneToDo = (ToDo) => {
-        
-
         ToDoStore.doneToDo(ToDo)
     };
    
@@ -60,6 +60,10 @@ class ToDoItem extends Component {
         this.setState({
             modalVisible: visible
         });
+    }
+
+    checkBoxChange = () => {
+        this.setState({ isCompleted: !this.state.isCompleted})
     }
 
     render() {
@@ -86,7 +90,7 @@ class ToDoItem extends Component {
         ]
         return (
             <View>
-                { !this.state.modalVisible ? 
+                { !this.state.modalVisible ?
                <Swipeout right={swipeBtns1}
                left={swipeBtns2}
                autoClose={true} 
@@ -98,25 +102,21 @@ class ToDoItem extends Component {
                     </View>
                 </Swipeout>  
                 :
-                <View>
-                { this.modal() }
-                </View>
+                    <View>
+                        { this.modal() }
+                    </View>
                 }
-             
             </View>
         )
     }
-    
 }
 
-export default observer(ToDoItem);
-
 const styles = StyleSheet.create({
+
         modalmessage:{
             flex:1,
             alignItems: 'center',
             margin: '30%',
-
         },
         searchContainer: {
             height: 40,
@@ -131,17 +131,15 @@ const styles = StyleSheet.create({
         SwipeText: {
             fontSize: 20,
             fontWeight: '800',
-            color: 'grey',
-            
-            
+            color: 'grey',    
         },
         SwipeDate: {
             fontSize: 13,
             color: 'grey',
             paddingTop: 30,
             marginHorizontal:30,
-
         }
-        
-    
-})
+ })
+
+export default observer(ToDoItem);
+
