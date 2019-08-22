@@ -3,6 +3,7 @@ import { observer } from 'mobx-react';
 import { Container, Content, List, Button, Right, Text } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import ToDoItem from '../components/ToDoItem';
+import DeleteHeader from '../components/DeleteHeader';
 
 class ListScreen extends Component {
 
@@ -11,10 +12,8 @@ class ListScreen extends Component {
             headerTitle: "All Actions",
             headerRight: (
                 <Right>
-                    <Button 
-                        hasText transparent
-                    >
-                        <Text>Delete Selected</Text>
+                    <Button hasText transparent>
+                        <DeleteHeader />
                     </Button>
                 </Right>
             ),

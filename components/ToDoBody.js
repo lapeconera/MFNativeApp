@@ -24,7 +24,6 @@ class ToDoBody extends Component {
     };
 
     render() {
-        const { ToDos } = ToDoStore;
 
         return (
             <View style={styles.wholeStyle}>

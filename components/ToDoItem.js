@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import { Modal, View, StyleSheet } from "react-native";
-import { Item, Icon, Input, ListItem, Text, Button, CheckBox } from 'native-base';
+import { Item, Icon, Input, ListItem, Text, Button, Left, Body } from 'native-base';
 import ToDoStore from '../ToDoStore';
+import DeleteCheckBox from './DeleteCheckBox'
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -42,17 +43,11 @@ class ToDoItem extends Component {
     editToDo = (ToDo) => {
         this.setModalVisible(!this.state.modalVisible);
         const updateTodo = this.state.inputValue;
-        ToDoStore.editToDo(ToDo,updateTodo);
+        ToDoStore.editToDo(ToDo, updateTodo);
     }
 
     deleteToDo = (ToDo) => {
         ToDoStore.deleteToDo(ToDo);
-    }
-
-    deleteSelected = (ToDo) => {
-        if(this.state.isChecked === true) {
-            ToDoStore.deleteToDo(ToDo)
-        }
     }
 
     setModalVisible = (visible) => {
@@ -61,20 +56,19 @@ class ToDoItem extends Component {
         });
     }
 
-    checkBoxChange = () => {
-        this.setState({ isChecked: !this.state.isChecked})
-    }
-
     render() {
+
         return (
             <View>
                 { !this.state.modalVisible ? 
                     <ListItem>
-                        <CheckBox
-                            checked={this.state.isChecked}
-                            onPress={() => this.checkBoxChange()}
-                        />
-                        <Text>{this.props.ToDo.title}</Text>
+                        <Left>
+                            <DeleteCheckBox ToDo={this.props.ToDo}/>
+                        </Left>
+                        <Body>
+                            <Text>{this.props.ToDo.title}</Text>
+                        </Body>
+                       
                         <Button
                             transparent
                             onPress = {() => this.deleteToDo(this.props.ToDo)}
@@ -87,7 +81,7 @@ class ToDoItem extends Component {
                                 this.setModalVisible(true);
                             }} 
                         >
-                            <Icon name = { 'create' } />                
+                            <Icon name="create"></Icon>              
                         </Button>
                     </ListItem> 
                 :
