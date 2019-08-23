@@ -1,28 +1,21 @@
 import React from 'react';
 import {ScrollView,Text,View} from 'react-native';
-import {Container, Header, Content, Card, CardItem, Body} from 'native-base';
 import ToDoStore from '../ToDoStore';
 
 class SearchBody extends React.Component{
     render(){
-        var actions = this.props.data;
+        let actions = this.props.data;
         if (!actions){
-            return  <View/>
+            return <View/>
         } 
-        else
         return(
-          
-                <Content padder>
-                    <ScrollView style={{flex: 1}}>
-                          
+                <View>
+                    <ScrollView style={{flex: 1}}>     
                             <Text style={styles.list}>
                             {actions}
-                            </Text>
-                          
+                            </Text>  
                     </ScrollView>
-                </Content>
-           
-           
+                </View>
         )
     }
 }
@@ -37,4 +30,4 @@ const styles = {
     }
 }
 
-export default SearchBody
+export default  SearchBody 

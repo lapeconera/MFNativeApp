@@ -5,7 +5,8 @@ import SearchBody from '../components/SearchBody';
 import ToDoStore from '../ToDoStore';
 import { observer } from 'mobx-react';
 
-export class SearchScreen extends React.Component {
+class SearchScreen extends React.Component {
+
     state = {
         actionSearch: "",
         data: {},
@@ -13,33 +14,38 @@ export class SearchScreen extends React.Component {
     }
  
     searchAction = () =>{
-        {console.log(ToDoStore)}
-
         this.setState({onCall:true});
         if(this.state.actionSearch === ""){
             return;
         }
-        
-        let self = this;
         const { ToDos } = ToDoStore;
-        {ToDos.map((ToDo,index) =>  
-            {this.state.actionSearch === ToDo.title?  
-                self.setState({data: ToDo.title})
-                :null}               
-  
-        )}
-        self.setState({onCall: false});
+        {ToDos.map((ToDo) =>   
+            {this.state.actionSearch === ToDo.title ?  
+                this.setState({data: ToDo.title, onCall: false})
+                :
+                console.log(ToDos)
+                // return (
+                // <View >
+                //     <Text style={styles.noAction}>No actions found</Text>
+                // </View>
+                // )
+            }          
+            
+        )};
+       
     }
 
     renderBody = () =>{
         if(this.state.onCall){
             return(
-                <Text>No actions</Text>
+            <View >
+              <Text style={styles.noAction}>No actions found</Text>
+            </View>
             )
         }
         else{
             return(
-                <SearchBody data={this.state.data} totos={this.state.onCall}/>
+                <SearchBody data={this.state.data}/>
             )
         }
     }
@@ -48,13 +54,13 @@ export class SearchScreen extends React.Component {
          <View style={styles.wholeStyle}>
             <View style={styles.container}>
                 <Item style={styles.searchContainer} searchBar rounded>
-                    <Icon name="ios-search" onPress={this.searchAction}/>
                         <Input 
                         style={styles.inputStyle}
                         value={this.state.actionSearch}
                         onChangeText={(actionSearch)=>this.setState({actionSearch})}
                         placeholder="Search"
                         />
+                <Icon name="ios-search" onPress={this.searchAction}/>   
                 </Item>
                 <View>
                 {this.renderBody()}
@@ -86,4 +92,11 @@ const styles = StyleSheet.create({
     inputStyle:{
         color: '#234644',
       },
+    noAction: {
+        flex: 1,
+        fontSize:16,
+        alignItems: 'center',
+        color:'grey',
+        paddingTop: 30,
+      }
 });

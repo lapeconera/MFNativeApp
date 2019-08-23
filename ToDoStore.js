@@ -6,6 +6,7 @@ const ToDo = types.model('ToDo', {
     id: types.identifier,
     title: types.string,
     isChecked: types.boolean,
+    done: types.boolean
 })
 
 const ToDoStore = types.model('ToDos', {
@@ -22,7 +23,7 @@ const ToDoStore = types.model('ToDos', {
     },
     editToDo(ToDo, updateTodo) {
         self.ToDos.map(todo => {
-            if ( todo.id === ToDo.id){
+            if (todo.id === ToDo.id){
                 return todo.title = updateTodo
             }else{
                 return todo.title
@@ -36,6 +37,18 @@ const ToDoStore = types.model('ToDos', {
                 return todo.id !== id;
             })
         })
+    },
+    doneToDo(ToDo){
+     
+        self.ToDos.map(todo => {
+            if ( todo.id === ToDo.id) {
+               return todo.done = true
+                 console.log("doneToDO",ToDo)
+            }else {
+                return ToDo.id
+            }
+        });
+        console.log("doneToDO",ToDo)
     }
 }))
 .create({
