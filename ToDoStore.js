@@ -1,12 +1,15 @@
 import { types } from 'mobx-state-tree';
 
+let deleteArray = [];
+
 const ToDo = types.model('ToDo', {
     id: types.identifier,
     title: types.string,
+    isChecked: types.boolean,
 })
 
 const ToDoStore = types.model('ToDos', {
-    ToDos: types.array(ToDo)
+    ToDos: types.array(ToDo),
 })
 .actions(self => ({
     addToDo(ToDo) {
@@ -19,8 +22,6 @@ const ToDoStore = types.model('ToDos', {
     },
     editToDo(ToDo, updateTodo) {
         self.ToDos.map(todo => {
-            console.log("1",ToDo.id )
-            console.log("2",todo.id)
             if ( todo.id === ToDo.id){
                 return todo.title = updateTodo
             }else{
@@ -28,15 +29,32 @@ const ToDoStore = types.model('ToDos', {
             } 
         });
         console.log("3",self.ToDos )
+    },
+    bulkDelete(deleteArray) {
+        self.ToDos = deleteArray.map(id => {
+            self.ToDos.filter(todo => {
+                return todo.id !== id;
+            })
+        })
     }
 }))
-
 .create({
     ToDos: [
         {
-            id: '123456',
-            title: 'Hey'
-        }
+            id: '23cn34024',
+            title: 'Hey',
+            isChecked: false,
+        },
+        {
+            id: '35on03494',
+            title: 'Hello',
+            isChecked: false,
+        },
+        {
+            id: '1344rf34wrf24',
+            title: 'Whats Up!',
+            isChecked: false,
+        },
     ]
 });
 

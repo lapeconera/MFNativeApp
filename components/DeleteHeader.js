@@ -1,12 +1,24 @@
-import React from 'react';
-import { Text } from 'native-base';
-import DeleteCheckBox from './DeleteCheckBox';
+import React, { Component } from 'react';
+import { Text, Button } from 'native-base';
+import ToDoStore from '../ToDoStore';
 
-const DeleteHeader = () => {
-    
+class DeleteHeader extends Component {
+        
+    deleteSelected = () => {
 
-    return <Text>Select</Text>
-    
+    }
+
+    render() {
+        return (
+            <Button 
+                hasText transparent
+                onPress={() => deleteSelected()}
+            >
+                <Text>Delete All</Text>
+            </Button>
+        )
+    }
+  
 }
 
 export default DeleteHeader

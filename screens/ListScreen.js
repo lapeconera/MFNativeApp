@@ -6,15 +6,12 @@ import ToDoItem from '../components/ToDoItem';
 import DeleteHeader from '../components/DeleteHeader';
 
 class ListScreen extends Component {
-
-    static navigationOptions = ({ navigation }) => {
+    static navigationOptions = () => {
         return {
             headerTitle: "All Actions",
             headerRight: (
                 <Right>
-                    <Button hasText transparent>
-                        <DeleteHeader />
-                    </Button>
+                    <DeleteHeader />
                 </Right>
             ),
         };

@@ -19,7 +19,7 @@ class ToDoBody extends Component {
     };
 
     addToDo = () => {
-        ToDoStore.addToDo({ id: uuidv4(), title: this.state.title})
+        ToDoStore.addToDo({ id: uuidv4(), title: this.state.title, isChecked: false})
         this.setState(initialState)
     };
 

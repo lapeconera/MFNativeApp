@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import { Modal, View, StyleSheet } from "react-native";
-import { Item, Icon, Input, ListItem, Text, Button, Left, Body } from 'native-base';
+import { Item, Icon, Input, ListItem, Text, Button, Left, Body, CheckBox } from 'native-base';
 import ToDoStore from '../ToDoStore';
-import DeleteCheckBox from './DeleteCheckBox'
+
+let deleteArray = [];
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -50,20 +51,42 @@ class ToDoItem extends Component {
         ToDoStore.deleteToDo(ToDo);
     }
 
+    bulkDelete = (ToDo, deleteArray) => {
+        ToDoStore.bulkDelete(ToDo, deleteArray);
+    }
+
     setModalVisible = (visible) => {
         this.setState({
             modalVisible: visible
         });
     }
 
-    render() {
+    checkBoxChange = () => {
+        const todo = this.props.ToDo;
+        this.setState({ isChecked: !this.state.isChecked})
+        
+        if (this.state.isChecked !== true) {
+            deleteArray.push(todo.id);
+        }
+        
+        if ( this.state.isChecked === true) {
+            deleteArray = deleteArray.filter(t => {
+                return (t !== todo.id) && (todo.isChecked !== true)
+            })
+            ToDoStore.deleteArray.push(deleteArray);
+        }
+    }
 
+    render() {
         return (
             <View>
                 { !this.state.modalVisible ? 
                     <ListItem>
                         <Left>
-                            <DeleteCheckBox ToDo={this.props.ToDo}/>
+                            <CheckBox
+                                checked={this.state.isChecked}
+                                onPress={() => this.checkBoxChange()}
+                            />
                         </Left>
                         <Body>
                             <Text>{this.props.ToDo.title}</Text>
@@ -112,4 +135,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default observer(ToDoItem);
+export default observer(ToDoItem, deleteArray);
