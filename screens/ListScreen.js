@@ -3,16 +3,22 @@ import { observer } from 'mobx-react';
 import { Container, Content, List, Button, Right, Text } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import ToDoItem from '../components/ToDoItem';
-import DeleteHeader from '../components/DeleteHeader';
+
+let deleteArray = [];
 
 class ListScreen extends Component {
+
     static navigationOptions = () => {
         return {
             headerTitle: "All Actions",
             headerRight: (
-                <Right>
-                    <DeleteHeader />
-                </Right>
+            <Right>
+                <Button 
+                    hasText transparent
+                >
+                    <Text>Select</Text>
+                </Button>
+            </Right>
             ),
         };
     }
@@ -24,7 +30,7 @@ class ListScreen extends Component {
             <Container>
                 <Content>
                     <List>
-                        {ToDos.map((ToDo, index) =>                 
+                        {ToDos.map((ToDo, index) =>          
                             <ToDoItem key={index} ToDo={ToDo} />
                         )}
                     </List>

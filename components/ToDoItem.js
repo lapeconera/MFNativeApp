@@ -5,7 +5,6 @@ import { Item, Icon, Input, ListItem, Text, Button, Left, Body, CheckBox } from 
 import ToDoStore from '../ToDoStore';
 import Swipeout from 'react-native-swipeout';
 
-
 let deleteArray = [];
 
 class ToDoItem extends Component {
@@ -15,6 +14,7 @@ class ToDoItem extends Component {
             modalVisible: false,
             inputValue: "",
             isChecked: false,
+            done: false
         };
     }
 
@@ -47,21 +47,20 @@ class ToDoItem extends Component {
         this.setModalVisible(!this.state.modalVisible);
         const updateTodo = this.state.inputValue;
         ToDoStore.editToDo(ToDo, updateTodo);
-    }
+    };
 
     deleteToDo = (ToDo) => {
         ToDoStore.deleteToDo(ToDo);
-    }
+    };
 
     bulkDelete = (ToDo, deleteArray) => {
         ToDoStore.bulkDelete(ToDo, deleteArray);
-    }
+    };
 
     doneToDo = (ToDo) => {
         ToDoStore.doneToDo(ToDo)
     };
    
-
     setModalVisible = (visible) => {
         this.setState({
             modalVisible: visible
@@ -74,13 +73,14 @@ class ToDoItem extends Component {
         
         if (this.state.isChecked !== true) {
             deleteArray.push(todo.id);
+            console.log(deleteArray);
         }
-        
+
         if ( this.state.isChecked === true) {
             deleteArray = deleteArray.filter(t => {
                 return (t !== todo.id) && (todo.isChecked !== true)
             })
-            ToDoStore.deleteArray.push(deleteArray);
+            console.log(deleteArray);
         }
     }
 
@@ -106,6 +106,7 @@ class ToDoItem extends Component {
                 onPress: () => { this.doneToDo(this.props.ToDo) }
             },
         ]
+
         return (
             <View>
                 { !this.state.modalVisible ?
@@ -115,14 +116,15 @@ class ToDoItem extends Component {
                         autoClose={true} 
                         transparent
                     >
-                    <View style={styles.Swipe}>
                         <CheckBox 
-                            
+                            checked={this.state.isChecked}
+                            onPress={() => this.checkBoxChange()}
                         />
-                        <Text style={styles.SwipeText} >{this.props.ToDo.title}</Text>
-                        <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
-                    </View>
-                </Swipeout>  
+                        <View style={styles.Swipe}>
+                            <Text style={styles.SwipeText} >{this.props.ToDo.title}</Text>
+                            <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
+                        </View>
+                    </Swipeout>  
                 :
                     <View>
                         { this.modal() }
