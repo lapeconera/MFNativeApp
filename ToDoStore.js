@@ -1,6 +1,6 @@
 import { types } from 'mobx-state-tree';
 
-let deleteArray = []
+let deleteArray = [];
 
 const ToDo = types.model('ToDo', {
     id: types.identifier,
@@ -36,12 +36,27 @@ const ToDoStore = types.model('ToDos', {
         }
        
     },
-    bulkDelete(deleteArray) {
-        self.ToDos = deleteArray.map(id => {
-            self.ToDos.filter(todo => {
+    onDelete(isChecked, ToDo) {
+        if (isChecked !== true) {
+            deleteArray.push(ToDo.id);
+            console.log(deleteArray)
+        } else if (isChecked === true ) {
+            deleteArray = deleteArray.filter(t => {
+                return t !== ToDo.id
+            })
+            console.log(deleteArray);
+        } else {
+            console.log(`error`)
+        }
+    },
+    bulkDelete() {
+        deleteArray.map(id => {
+            self.ToDos = self.ToDos.filter(todo => {
                 return todo.id !== id;
             })
-        })
+            
+        });
+        deleteArray = [];
     },
     doneToDo(ToDo){
         console.log("doneToDO", ToDo)

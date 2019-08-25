@@ -4,8 +4,6 @@ import { Container, Content, List, Button, Right, Text } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import ToDoItem from '../components/ToDoItem';
 
-let deleteArray = [];
-
 class ListScreen extends Component {
 
     static navigationOptions = () => {
@@ -13,11 +11,12 @@ class ListScreen extends Component {
             headerTitle: "All Actions",
             headerRight: (
             <Right>
-                <Button 
-                    hasText transparent
-                >
-                    <Text>Select</Text>
-                </Button>
+                    <Button 
+                        hasText transparent
+                        onPress={() => ToDoStore.bulkDelete()}
+                    >
+                        <Text>Delete All</Text>
+                    </Button>
             </Right>
             ),
         };
@@ -30,7 +29,7 @@ class ListScreen extends Component {
             <Container>
                 <Content>
                     <List>
-                        {ToDos.map((ToDo, index) =>          
+                        {ToDos.map((ToDo, index) =>    
                             <ToDoItem key={index} ToDo={ToDo} />
                         )}
                     </List>

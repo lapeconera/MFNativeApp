@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import { Modal, View, StyleSheet } from "react-native";
-import { Item, Icon, Input, ListItem, Text, Button, Left, Body, CheckBox } from 'native-base';
+import { Item, Icon, Input, Text, Button, Left, Body, CheckBox } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import Swipeout from 'react-native-swipeout';
 
@@ -21,13 +21,14 @@ class ToDoItem extends Component {
     async componentDidMount() {
         await this.setState({ inputValue: this.props.ToDo.title });
     }
+
     modal = () => (
-            <Modal
+        <Modal
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
             style={styles.modalmessage}
-            >
+        >
 
             <View style={{margin: 100}}>
                 <View>
@@ -53,10 +54,6 @@ class ToDoItem extends Component {
         ToDoStore.deleteToDo(ToDo);
     };
 
-    bulkDelete = (ToDo, deleteArray) => {
-        ToDoStore.bulkDelete(ToDo, deleteArray);
-    };
-
     doneToDo = (ToDo) => {
         ToDoStore.doneToDo(ToDo)
     };
@@ -67,21 +64,9 @@ class ToDoItem extends Component {
         });
     }
 
-    checkBoxChange = () => {
-        const todo = this.props.ToDo;
+    checkBoxChange = (isChecked, ToDo) => {
         this.setState({ isChecked: !this.state.isChecked})
-        
-        if (this.state.isChecked !== true) {
-            deleteArray.push(todo.id);
-            console.log(deleteArray);
-        }
-
-        if ( this.state.isChecked === true) {
-            deleteArray = deleteArray.filter(t => {
-                return (t !== todo.id) && (todo.isChecked !== true)
-            })
-            console.log(deleteArray);
-        }
+        ToDoStore.onDelete(isChecked, ToDo);
     }
 
     render() {
@@ -98,6 +83,7 @@ class ToDoItem extends Component {
                 onPress: () => { this.deleteToDo(this.props.ToDo) }
             },
         ];
+
         let swipeBtns2 = [
             {
                 text: 'Done',
@@ -106,7 +92,7 @@ class ToDoItem extends Component {
                 onPress: () => { this.doneToDo(this.props.ToDo) }
             },
         ]
-
+        
         return (
             <View>
                 { !this.state.modalVisible ?
@@ -118,8 +104,8 @@ class ToDoItem extends Component {
                     >
                         <CheckBox 
                             checked={this.state.isChecked}
-                            onPress={() => this.checkBoxChange()}
-                        />
+                            onPress={() => this.checkBoxChange(this.state.isChecked, this.props.ToDo)}
+                        />  
                         <View style={styles.Swipe}>
                             <Text style={styles.SwipeText} >{this.props.ToDo.title}</Text>
                             <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
