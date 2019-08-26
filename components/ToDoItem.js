@@ -88,14 +88,8 @@ class ToDoItem extends Component {
               },
         ]
         return (
-<<<<<<< HEAD
-          
-            <View>       
-                { !this.state.modalVisible ? 
-=======
             <View>
                 { !this.state.modalVisible ?
->>>>>>> e55460fcc3907aff738c4410f0859d2f230ebb3f
                <Swipeout right={swipeBtns1}
                left={swipeBtns2}
                autoClose={true} 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {ScrollView,Text,View} from 'react-native';
 import ToDoStore from '../ToDoStore';
 import { List, ListItem } from 'native-base';
-
+import {observer} from 'mobx-react';
 
 export class DoneList extends Component {
     state= {
@@ -42,15 +42,14 @@ export class DoneList extends Component {
     }
 }
 
-export default DoneList
+export default observer (DoneList);
 
 const styles = {
     list: {
-      fontSize:20,
+      fontSize:60,
       alignItems: 'center',
       color:'grey',
       fontWeight: '800',
-      color: 'grey',    
       paddingTop: 30,
       marginHorizontal:30,
     }
