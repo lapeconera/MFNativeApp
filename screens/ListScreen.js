@@ -15,7 +15,7 @@ class ListScreen extends Component {
                         hasText transparent
                         onPress={() => ToDoStore.bulkDelete()}
                     >
-                        <Text>Delete All</Text>
+                        <Text>Select</Text>
                     </Button>
             </Right>
             ),
