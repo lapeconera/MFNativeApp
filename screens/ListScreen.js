@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Container, Content, List, Button, Right, Text } from 'native-base';
+import { Container, Content, List, Button, Right, Text, Tabs, Tab } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import ToDoItem from '../components/ToDoItem';
 import {StyleSheet} from 'react-native';
 import DoneItem from '../components/DoneItem';
 
+let initialState = {
+    isSelected: false,
+}
+
 class ListScreen extends Component {
 
-    static navigationOptions = () => {
+    static navigationOptions = ({ navigation }) => {
         return {
             headerTitle: "All Actions",
             headerRight: (
-            <Right>
-                    <Button 
-                        hasText transparent
-                        onPress={() => ToDoStore.bulkDelete()}
-                    >
-                        <Text>Select</Text>
-                    </Button>
-            </Right>
+                <Right>
+                        <Button 
+                            hasText transparent
+                            onPress={() => ToDoStore.bulkDelete()}
+                        >
+                            <Text>Select</Text>
+                        </Button>
+                </Right>
             ),
         };
     }
@@ -30,14 +34,19 @@ class ListScreen extends Component {
         return (
             <Container>
                     <Tabs style={styles.tab}  >
-                        <Tab heading="To Do">
-                        {ToDos.map((ToDo, index) =>                 
-                            <ToDoItem key={index} ToDo={ToDo} />
-
-                        )}
+                        <Tab heading="Actions">
+                            {ToDos.map(ToDo => {
+                                if (ToDo.done === false) {
+                                    return  <ToDoItem key={ToDo.id} ToDo={ToDo} />
+                                }
+                            })}    
                         </Tab>
                         <Tab heading="Done">
-                            <DoneItem/>
+                            {ToDos.map(ToDo => {
+                                if (ToDo.done === true) {
+                                    return  <ToDoItem key={ToDo.id} ToDo={ToDo} />
+                                }
+                            })}
                         </Tab>
                      </Tabs>
                       

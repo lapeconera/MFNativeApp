@@ -32,14 +32,10 @@ class ToDoItem extends Component {
                 <View>
                     <Item style={styles.searchContainer} searchBar rounded>
                         <Input 
-                            placeholder="Edit" 
-                            value={this.state.inputValue}
-                            onChangeText = {(inputValue) => this.setState({inputValue})}
-                        />
-                        <Icon 
-                            name="ios-checkmark" 
-                            onPress={()=> this.editToDo(this.props.ToDo)}
-                        />
+                        placeholder="Edit" 
+                        value={this.state.inputValue}
+                        onChangeText = {(inputValue) => this.setState({inputValue})}/>
+                        <Icon name="ios-checkmark" onPress={()=> this.editToDo(this.props.ToDo)}/>
                     </Item>
                 </View>
             </View>
@@ -111,7 +107,7 @@ class ToDoItem extends Component {
                         <CheckBox 
                             checked={isChecked}
                             onPress={() => this.checkBoxChange(isChecked, ToDo)}
-                        />
+                        />  
                         <View style={styles.Swipe}>
                             <Text style={styles.SwipeText} >{ToDo.title}</Text>
                             <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
@@ -128,7 +124,6 @@ class ToDoItem extends Component {
 }
 
 const styles = StyleSheet.create({
-
         modalmessage:{
             flex:1,
             alignItems: 'center',
@@ -154,7 +149,7 @@ const styles = StyleSheet.create({
             color: 'grey',
             paddingTop: 30,
             marginHorizontal:30,
-        },
+        }
  })
 
 export default observer(ToDoItem);
