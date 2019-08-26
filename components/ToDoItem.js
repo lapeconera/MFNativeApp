@@ -124,7 +124,6 @@ class ToDoItem extends Component {
 }
 
 const styles = StyleSheet.create({
-
         modalmessage:{
             flex:1,
             alignItems: 'center',
