@@ -5,13 +5,13 @@ import { Container, ListItem, CheckBox,Item, Icon, Text, Button,Input } from 'na
 import ToDoStore from '../ToDoStore';
 import Swipeout from 'react-native-swipeout';
 
-
 class ToDoItem extends Component {
     constructor(props) {
         super(props)
         this.state = {
             modalVisible: false,
             inputValue: "",
+            data: [],
         };
     }
 
@@ -50,8 +50,6 @@ class ToDoItem extends Component {
     };
 
     doneToDo = (ToDo) => {
-        
-
         ToDoStore.doneToDo(ToDo)
     };
    
@@ -85,7 +83,8 @@ class ToDoItem extends Component {
               },
         ]
         return (
-            <View>
+          
+            <View>       
                 { !this.state.modalVisible ? 
                <Swipeout right={swipeBtns1}
                left={swipeBtns2}
@@ -131,8 +130,7 @@ const styles = StyleSheet.create({
         SwipeText: {
             fontSize: 20,
             fontWeight: '800',
-            color: 'grey',
-            
+            color: 'grey',    
             
         },
         SwipeDate: {

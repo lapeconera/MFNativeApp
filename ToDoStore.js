@@ -32,7 +32,7 @@ const ToDoStore = types.model('ToDos', {
         self.ToDos.map(todo => {
             if ( todo.id === ToDo.id) {
                return todo.done = true
-                 console.log("doneToDO",ToDo)
+               
             }else {
                 return ToDo.id
             }
