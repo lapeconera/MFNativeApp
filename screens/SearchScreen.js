@@ -5,8 +5,7 @@ import SearchBody from '../components/SearchBody';
 import ToDoStore from '../ToDoStore';
 import { observer } from 'mobx-react';
 
-class SearchScreen extends React.Component {
-
+class SearchScreen extends Component {
     state = {
         actionSearch: "",
         data: {},

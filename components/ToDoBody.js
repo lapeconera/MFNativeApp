@@ -20,12 +20,11 @@ class ToDoBody extends Component {
     };
 
     addToDo = () => {
-        ToDoStore.addToDo({ id: uuidv4(), title: this.state.title, done: false })
+        ToDoStore.addToDo({ id: uuidv4(), title: this.state.title, done: false , isChecked: false})
         this.setState(initialState)
     };
 
     render() {
-        const { ToDos } = ToDoStore;
 
         return (
             <View style={styles.wholeStyle}>
