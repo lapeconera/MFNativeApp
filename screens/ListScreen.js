@@ -3,6 +3,8 @@ import { observer } from 'mobx-react';
 import { Container, Content, List, Button, Right, Text } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import ToDoItem from '../components/ToDoItem';
+import {StyleSheet} from 'react-native';
+import DoneItem from '../components/DoneItem';
 
 class ListScreen extends Component {
 
@@ -27,16 +29,31 @@ class ListScreen extends Component {
         
         return (
             <Container>
-                <Content>
-                    <List>
-                        {ToDos.map((ToDo) =>  
-                            <ToDoItem key={ToDo.id} ToDo={ToDo} />
+                    <Tabs style={styles.tab}  >
+                        <Tab heading="To Do">
+                        {ToDos.map((ToDo, index) =>                 
+                            <ToDoItem key={index} ToDo={ToDo} />
+
                         )}
-                    </List>
-                </Content>
+                        </Tab>
+                        <Tab heading="Done">
+                            <DoneItem/>
+                        </Tab>
+                     </Tabs>
+                      
             </Container>
         )
     }
 }
 
 export default observer(ListScreen);
+
+const styles = StyleSheet.create({
+    tabsContainerStyle: {
+    color: '#234644',
+      backgroundColor: '#fbefdacf',
+    },
+    underlineStyle:{
+        color:'red'
+    }
+})
