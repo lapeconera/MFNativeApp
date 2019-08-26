@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import { Modal, View, StyleSheet } from "react-native";
-import { Item, Icon, Input, ListItem, Text, Button, CheckBox } from 'native-base';
+import { Item, Icon, Input, Text, CheckBox } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import Swipeout from 'react-native-swipeout';
-
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -12,20 +11,22 @@ class ToDoItem extends Component {
         this.state = {
             modalVisible: false,
             inputValue: "",
-            isCompleted: false,
+            isChecked: false,
+            done: false
         };
     }
 
     async componentDidMount() {
         await this.setState({ inputValue: this.props.ToDo.title });
     }
+
     modal = () => (
-            <Modal
+        <Modal
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
             style={styles.modalmessage}
-            >
+        >
 
             <View style={{margin: 100}}>
                 <View>
@@ -43,64 +44,75 @@ class ToDoItem extends Component {
 
     editToDo = (ToDo) => {
         this.setModalVisible(!this.state.modalVisible);
-        const updateTodo = this.state.inputValue
-        ToDoStore.editToDo(ToDo,updateTodo)
+        const updateTodo = this.state.inputValue;
+        ToDoStore.editToDo(ToDo, updateTodo);
     };
 
     deleteToDo = (ToDo) => {
         ToDoStore.deleteToDo(ToDo);
-    }
+    };
 
     doneToDo = (ToDo) => {
         ToDoStore.doneToDo(ToDo)
     };
    
-
     setModalVisible = (visible) => {
         this.setState({
             modalVisible: visible
         });
     }
 
-    checkBoxChange = () => {
-        this.setState({ isCompleted: !this.state.isCompleted})
+    checkBoxChange = (isChecked, ToDo) => {
+        this.setState({isChecked: !this.state.isChecked})
+        ToDoStore.onSelect(isChecked, ToDo);
     }
 
     render() {
         let swipeBtns1 = [
             {
-            text: 'Delete',
-            backgroundColor: '#fbefd9',
-            color: '#234544',
-            onPress: () => { this.deleteToDo(this.props.ToDo) }
-          },
-          {
-            text: 'Edit',
-            backgroundColor: '#234544',
-            onPress: () => { this.setModalVisible(true) }
-         },
+                text: 'Edit',
+                backgroundColor: '#234544',
+                onPress: () => { this.setModalVisible(true) }
+            }, 
+            {
+                text: 'Delete',
+                backgroundColor: '#fbefd9',
+                color: '#234544',
+                onPress: () => { this.deleteToDo(this.props.ToDo) }
+            },
         ];
+
         let swipeBtns2 = [
             {
                 text: 'Done',
                 backgroundColor: '#fbefd9',
                 color: '#234544',
                 onPress: () => { this.doneToDo(this.props.ToDo) }
-              },
+            },
         ]
+
+        const { ToDo } = this.props;
+        const { isChecked } = this.state;
+
         return (
             <View>
+                {console.log(this.props)}
                 { !this.state.modalVisible ?
-               <Swipeout right={swipeBtns1}
-               left={swipeBtns2}
-               autoClose={true} 
-               backgroundColor= 'transparent'
-              >
-                   <View style={styles.Swipe}>
-                        <Text style={styles.SwipeText} >{this.props.ToDo.title}</Text>
-                        <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
-                    </View>
-                </Swipeout>  
+                    <Swipeout 
+                        left={swipeBtns2}
+                        right={swipeBtns1}
+                        autoClose={true} 
+                        transparent
+                    >
+                        <CheckBox 
+                            checked={isChecked}
+                            onPress={() => this.checkBoxChange(isChecked, ToDo)}
+                        />  
+                        <View style={styles.Swipe}>
+                            <Text style={styles.SwipeText} >{ToDo.title}</Text>
+                            <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
+                        </View>
+                    </Swipeout>  
                 :
                     <View>
                         { this.modal() }
@@ -142,4 +154,3 @@ const styles = StyleSheet.create({
  })
 
 export default observer(ToDoItem);
-
