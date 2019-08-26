@@ -5,7 +5,7 @@ let deleteArray = [];
 const ToDo = types.model('ToDo', {
     id: types.identifier,
     title: types.string,
-    done: types.boolean
+    done: types.boolean,
 })
 
 const ToDoStore = types.model('ToDos', {
@@ -30,36 +30,28 @@ const ToDoStore = types.model('ToDos', {
         });
         console.log("3",self.ToDos )
     },
-    selected(valid) {
-        if (valid === true) {
-            console.log(deleteArray);
-        }
-       
-    },
-    onDelete(isChecked, ToDo) {
+    onSelect(isChecked, ToDo) {
         if (isChecked !== true) {
             deleteArray.push(ToDo.id);
-            console.log(deleteArray)
-        } else if (isChecked === true ) {
-            deleteArray = deleteArray.filter(t => {
-                return t !== ToDo.id
-            })
             console.log(deleteArray);
         } else {
-            console.log(`error`)
+            deleteArray = deleteArray.filter(t => {
+                return (t !== ToDo.id && isChecked === true);
+            });
         }
     },
     bulkDelete() {
-        deleteArray.map(id => {
-            self.ToDos = self.ToDos.filter(todo => {
-                return todo.id !== id;
-            })
-            
-        });
+        if (deleteArray.length > 0) {
+            deleteArray.map(id => {
+                self.ToDos = self.ToDos.filter(todo => {
+                    return todo.id !== id;
+                }) 
+            });
+        }
         deleteArray = [];
     },
     doneToDo(ToDo){
-        console.log("doneToDO", ToDo)
+        console.log("doneToDo", ToDo)
         self.ToDos.map(todo => {
             if ( todo.id === ToDo.id) {
                return todo.done = true
@@ -67,7 +59,7 @@ const ToDoStore = types.model('ToDos', {
                 return ToDo.id
             }
         });
-        console.log("doneToDO", ToDo)
+        console.log("doneToDo", ToDo)
     }
 }))
 .create({
@@ -75,17 +67,17 @@ const ToDoStore = types.model('ToDos', {
         {
             id: '23cn34024',
             title: 'Hey',
-            done: false
+            done: false,
         },
         {
             id: '35on03494',
             title: 'Hello',
-            done: false
+            done: false,
         },
         {
             id: '1344rf34wrf24',
             title: 'Whats Up!',
-            done: false
+            done: false,
         },
     ]
 });

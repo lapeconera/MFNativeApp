@@ -29,8 +29,8 @@ class ListScreen extends Component {
             <Container>
                 <Content>
                     <List>
-                        {ToDos.map((ToDo, index) =>    
-                            <ToDoItem key={index} ToDo={ToDo} />
+                        {ToDos.map((ToDo) =>  
+                            <ToDoItem key={ToDo.id} ToDo={ToDo} />
                         )}
                     </List>
                 </Content>

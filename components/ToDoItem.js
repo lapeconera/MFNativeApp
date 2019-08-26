@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import {observer} from 'mobx-react';
 import { Modal, View, StyleSheet } from "react-native";
-import { Item, Icon, Input, Text, Button, Left, Body, CheckBox } from 'native-base';
+import { Item, Icon, Input, Text, CheckBox } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import Swipeout from 'react-native-swipeout';
-
-let deleteArray = [];
 
 class ToDoItem extends Component {
     constructor(props) {
@@ -65,8 +63,8 @@ class ToDoItem extends Component {
     }
 
     checkBoxChange = (isChecked, ToDo) => {
-        this.setState({ isChecked: !this.state.isChecked})
-        ToDoStore.onDelete(isChecked, ToDo);
+        this.setState({isChecked: !this.state.isChecked})
+        ToDoStore.onSelect(isChecked, ToDo);
     }
 
     render() {
@@ -92,9 +90,13 @@ class ToDoItem extends Component {
                 onPress: () => { this.doneToDo(this.props.ToDo) }
             },
         ]
-        
+
+        const { ToDo } = this.props;
+        const { isChecked } = this.state;
+
         return (
             <View>
+                {console.log(this.props)}
                 { !this.state.modalVisible ?
                     <Swipeout 
                         left={swipeBtns2}
@@ -103,11 +105,11 @@ class ToDoItem extends Component {
                         transparent
                     >
                         <CheckBox 
-                            checked={this.state.isChecked}
-                            onPress={() => this.checkBoxChange(this.state.isChecked, this.props.ToDo)}
+                            checked={isChecked}
+                            onPress={() => this.checkBoxChange(isChecked, ToDo)}
                         />  
                         <View style={styles.Swipe}>
-                            <Text style={styles.SwipeText} >{this.props.ToDo.title}</Text>
+                            <Text style={styles.SwipeText} >{ToDo.title}</Text>
                             <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
                         </View>
                     </Swipeout>  
