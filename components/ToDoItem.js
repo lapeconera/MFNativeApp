@@ -99,9 +99,9 @@ class ToDoItem extends Component {
         const { isChecked } = this.state;
 
         return (
-            <View>
-                {console.log(this.props)}
-                { !this.state.modalVisible ?
+            <View>       
+                { !this.state.modalVisible ? 
+
                     <Swipeout 
                         left={swipeBtns2}
                         right={swipeBtns1}
