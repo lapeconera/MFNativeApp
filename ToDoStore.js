@@ -40,7 +40,7 @@ const ToDoStore = types.model('ToDos', {
             });
         }
     },
-    bulkDelete() {
+    bulkDeleteToDo() {
         if (deleteArray.length > 0) {
             deleteArray.map(id => {
                 self.ToDos = self.ToDos.filter(todo => {

@@ -1,14 +1,9 @@
 import React, { Component } from 'react';
 import { observer } from 'mobx-react';
-import { Container, Content, List, Button, Right, Text, Tabs, Tab } from 'native-base';
+import { Container, Button, Right, Text, Tabs, Tab } from 'native-base';
 import ToDoStore from '../ToDoStore';
 import ToDoItem from '../components/ToDoItem';
 import {StyleSheet} from 'react-native';
-import DoneItem from '../components/DoneItem';
-
-let initialState = {
-    isSelected: false,
-}
 
 class ListScreen extends Component {
 
@@ -19,7 +14,7 @@ class ListScreen extends Component {
                 <Right>
                         <Button 
                             hasText transparent
-                            onPress={() => ToDoStore.bulkDelete()}
+                            onPress={() => ToDoStore.bulkDeleteToDo()}
                         >
                             <Text>Select</Text>
                         </Button>
