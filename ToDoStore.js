@@ -28,7 +28,6 @@ const ToDoStore = types.model('ToDos', {
                 return todo.title
             } 
         });
-        console.log("3",self.ToDos )
     },
     onSelect(isChecked, ToDo) {
         if (isChecked !== true) {
@@ -38,6 +37,7 @@ const ToDoStore = types.model('ToDos', {
             deleteArray = deleteArray.filter(t => {
                 return (t !== ToDo.id && isChecked === true);
             });
+            console.log(deleteArray);
         }
     },
     bulkDeleteToDo() {
@@ -65,18 +65,23 @@ const ToDoStore = types.model('ToDos', {
 .create({
     ToDos: [
         {
-            id: '23cn34024',
-            title: 'Hey',
+            id: '23cn34024dbgb',
+            title: 'Mediatate for an hour',
             done: false,
         },
         {
-            id: '35on03494',
-            title: 'Hello',
+            id: '35on03494dfdr',
+            title: 'Go to the gym for half an hour',
             done: false,
         },
         {
             id: '1344rf34wrf24',
-            title: 'Whats Up!',
+            title: 'Learn Spanish',
+            done: false,
+        },
+        {
+            id: '1344btdbtette',
+            title: 'Read a new book',
             done: false,
         },
     ]

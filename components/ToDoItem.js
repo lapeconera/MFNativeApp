@@ -11,7 +11,6 @@ class ToDoItem extends Component {
         this.state = {
             modalVisible: false,
             inputValue: "",
-            isChecked: false,
             done: false
         };
     }
@@ -62,11 +61,6 @@ class ToDoItem extends Component {
         });
     }
 
-    checkBoxChange = (isChecked, ToDo) => {
-        this.setState({isChecked: !this.state.isChecked})
-        ToDoStore.onSelect(isChecked, ToDo);
-    }
-
     render() {
         let swipeBtns1 = [
             {
@@ -92,25 +86,20 @@ class ToDoItem extends Component {
         ]
 
         const { ToDo } = this.props;
-        const { isChecked } = this.state;
+        const { modalVisible } = this.state;
 
         return (
             <View>       
-                { !this.state.modalVisible ? 
-
+                { !modalVisible ? 
                     <Swipeout 
                         left={swipeBtns2}
                         right={swipeBtns1}
                         autoClose={true} 
                         transparent
                     >
-                        <CheckBox 
-                            checked={isChecked}
-                            onPress={() => this.checkBoxChange(isChecked, ToDo)}
-                        />  
-                        <View style={styles.Swipe}>
+                        <View style={styles.Swipe}>                         
                             <Text style={styles.SwipeText} >{ToDo.title}</Text>
-                            <Text sytle={styles.SwipeDate}>Friday 2019.00.00 </Text>
+                            <Text sytle={styles.SwipeDate}>Friday 29 Aug 2019 9:00AM</Text>
                         </View>
                     </Swipeout>  
                 :
@@ -141,12 +130,12 @@ const styles = StyleSheet.create({
         },
         SwipeText: {
             fontSize: 20,
-            fontWeight: '800',
-            color: 'grey',    
+            fontWeight: '600',
+            color: 'black',    
         },
         SwipeDate: {
-            fontSize: 13,
-            color: 'grey',
+            fontSize: 12,
+            color: 'gray',
             paddingTop: 30,
             marginHorizontal:30,
         }
