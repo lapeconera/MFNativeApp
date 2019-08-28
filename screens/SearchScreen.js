@@ -4,6 +4,7 @@ import { Header,Item,Icon,Input,Button } from "native-base";
 import SearchBody from '../components/SearchBody';
 import ToDoStore from '../ToDoStore';
 import { observer } from 'mobx-react';
+import axios from 'axios';
 
 class SearchScreen extends Component {
     state = {
@@ -17,22 +18,28 @@ class SearchScreen extends Component {
         if(this.state.actionSearch === ""){
             return;
         }
-        const { ToDos } = ToDoStore;
-        {ToDos.map((ToDo) =>   
-            {this.state.actionSearch === ToDo.title ?  
-                this.setState({data: ToDo.title, onCall: false})
-                :
-                console.log(ToDos)
-                // return (
-                // <View >
-                //     <Text style={styles.noAction}>No actions found</Text>
-                // </View>
-                // )
-            }          
-            
-        )};
-       
+        var self = this;
+        localApi.get('/actions')
+        .then(function(response){
+            console.log(response.data);
+            self.setState({data: response.data});
+            self.setState({onCall:false})
+        })
+        .catch(function(error){
+            console.log(error)
+        });
     }
+    //     const { ToDos } = ToDoStore;
+    //     {ToDos.map((ToDo) =>   
+    //         {this.state.actionSearch === ToDo.title ?  
+    //             this.setState({data: ToDo.title, onCall: false})
+    //             :
+    //             console.log(ToDos)
+    //         }          
+            
+    //     )};
+       
+    // }
 
     renderBody = () =>{
         if(this.state.onCall){

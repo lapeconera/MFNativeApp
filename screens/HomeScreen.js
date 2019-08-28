@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
+import SignIn from "../components/SignIn"
 
 export default function HomeScreen() {
   return (
@@ -22,15 +22,18 @@ export default function HomeScreen() {
             ALLY
             </Text>
           </TouchableOpacity>
+         
           <TouchableOpacity onPress={handleMfPress} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>
             by Mentally Friendly
             </Text>
           </TouchableOpacity>
-          <Text style={styles.WelcomeText}>
+         
+          {/* <Text style={styles.WelcomeText}>
           Ally supports you through your therapy journey.
-          </Text>
+          </Text> */}
         </View>
+        <SignIn/>
       </ScrollView>
     </View>
   );
