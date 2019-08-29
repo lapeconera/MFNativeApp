@@ -4,8 +4,7 @@ import { Form, Item, Label, Input, Button } from 'native-base';
 import axios from 'axios';
 import {AsyncStorage} from 'react-native';
 
-class LogIn extends Component{
-	
+class LogIn extends Component {
 	constructor(props) {
 		super(props)
 
@@ -23,19 +22,16 @@ class LogIn extends Component{
 			{email, password}
 		)
     	.then(async res => {
-				await AsyncStorage.setItem('userToken', res.data.token);
-				const token = await AsyncStorage.getItem('userToken');
-			
-				this.props.navigation.navigate('Action');
-				console.log('after route')
-			}
-		)
+			await AsyncStorage.setItem('token', res.data.token);
+			this.props.navigation.navigate('Action');
+		})
 		.catch( error => {
 			console.log(error);
-		})
+		});
 	}
 	
 	render() {
+		const { navigate } = this.props.navigation;
 
 		return (
 			<View style={{flex: 1}}>
@@ -49,9 +45,7 @@ class LogIn extends Component{
 					<Form>
 						<Item floatingLabel>
 							<Label>Email</Label>
-							<Input
-								onChangeText={(email)=>this.setState({ email })}
-							/>
+							<Input onChangeText={(email)=>this.setState({ email })} />
 						</Item>
 						<Item floatingLabel>
 							<Label>Password</Label>
@@ -75,6 +69,7 @@ class LogIn extends Component{
 					<Button
 						has text
 						transparent
+						onPress={() => navigate('signUp')}
 					>
 						<Text>Sign Up</Text>
 					</Button>

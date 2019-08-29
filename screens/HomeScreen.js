@@ -1,12 +1,29 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import LogIn from "../components/LogIn"
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View, AsyncStorage } from 'react-native';
+import { Header, Right, Button } from 'native-base';
+import LogIn from "../components/LogIn";
 
 export default function HomeScreen({ navigation }) {
-  
+  _handleLogOut = () => {
+      AsyncStorage.removeItem('token');
+      alert('You have been logged out.');
+  }
   return (
     <View style={styles.container}>
+      <Header>
+        <Right>
+            <Button
+            has Text
+            transparent
+            onPress={() => _handleLogOut()}
+          >
+            <Text>Logout</Text>
+          </Button>
+        </Right>
+      </Header>
+    
+
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
