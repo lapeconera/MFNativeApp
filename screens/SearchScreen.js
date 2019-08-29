@@ -19,7 +19,7 @@ class SearchScreen extends Component {
             return;
         }
         var self = this;
-        localApi.get('/actions')
+        axios.get('https://actions-manager-api.herokuapp.com/actions')
         .then(function(response){
             console.log(response.data);
             self.setState({data: response.data});

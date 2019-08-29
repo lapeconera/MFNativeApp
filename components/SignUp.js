@@ -37,6 +37,12 @@ class SignIn extends Component {
 	
 					<View style={styles.inputStyle}>
 						<Form>
+                            <Item floatingLabel>
+								<Label>Username</Label>
+								<Input
+									onChangeText={(email)=>this.setState({userName})}
+								/>
+							</Item>
 							<Item floatingLabel>
 								<Label>Email</Label>
 								<Input
