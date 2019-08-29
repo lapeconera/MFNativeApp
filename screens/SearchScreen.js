@@ -18,35 +18,34 @@ class SearchScreen extends Component {
         if(this.state.actionSearch === ""){
             return;
         }
-        var self = this;
-        localApi.get('/actions')
-        .then(function(response){
-            console.log(response.data);
-            self.setState({data: response.data});
+        let self = this;
+        axios.get('https://actions-manager-api.herokuapp.com/actions')
+        .then( res => {
+            console.log(res.data);
+            self.setState({data: res.data});
             self.setState({onCall:false})
         })
-        .catch(function(error){
-            console.log(error)
+        .catch( err => {
+            console.log(err)
         });
     }
+
     //     const { ToDos } = ToDoStore;
     //     {ToDos.map((ToDo) =>   
     //         {this.state.actionSearch === ToDo.title ?  
     //             this.setState({data: ToDo.title, onCall: false})
     //             :
     //             console.log(ToDos)
-    //         }          
-            
+    //         }
     //     )};
-       
     // }
 
-    renderBody = () =>{
-        if(this.state.onCall){
+    renderBody = () => {
+        if(this.state.onCall) {
             return(
-            <View >
-              <Text style={styles.noAction}>No actions found</Text>
-            </View>
+                <View >
+                <Text style={styles.noAction}>No actions found</Text>
+                </View>
             )
         }
         else{
@@ -55,6 +54,7 @@ class SearchScreen extends Component {
             )
         }
     }
+    
     render() {
         return (
          <View style={styles.wholeStyle}>

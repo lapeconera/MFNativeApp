@@ -1,10 +1,10 @@
 import * as WebBrowser from 'expo-web-browser';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import LogIn from "../components/LogIn"
+import SignUp from "../components/SignUp";
+import LogIn from '../components/LogIn';
 
-export default function HomeScreen({ navigation }) {
-  
+export default function LoadingScreen() {
   return (
     <View style={styles.container}>
       <ScrollView
@@ -16,24 +16,22 @@ export default function HomeScreen({ navigation }) {
             ALLY
             </Text>
           </TouchableOpacity>
-         
           <TouchableOpacity onPress={handleMfPress} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>
             by Mentally Friendly
             </Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <LogIn navigation={navigation}/>
-        </View>
+        <LogIn />
       </ScrollView>
     </View>
   );
 }
 
-HomeScreen.navigationOptions = {
+LoadingScreen.navigationOptions = {
   header: null,
 };
+
 
 function handleWebPress() {
   WebBrowser.openBrowserAsync(
