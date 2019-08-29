@@ -5,16 +5,15 @@ import axios from 'axios';
 
 class SignIn extends Component {
 	state = {
-		userName: "",
 		email: "",
         password: "",
         persons: []
     }
 
 	logIn = () => {
-		const { userName, email, password } = this.state;
+		const { email, password } = this.state;
 
-		console.log("userName, email, password", userName, email, password);
+		console.log("email, password", email, password);
 
 		axios.post(
 			'https://actions-manager-api.herokuapp.com/login', 
