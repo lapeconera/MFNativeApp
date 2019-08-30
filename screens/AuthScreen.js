@@ -27,7 +27,7 @@ export default function LoadingScreen() {
   );
 }
 
-LoadingScreen.navigationOptions = {
+AuthScreen.navigationOptions = {
   header: null,
 };
 

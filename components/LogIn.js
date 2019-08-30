@@ -23,6 +23,8 @@ class LogIn extends Component {
 		)
     	.then(async res => {
 			await AsyncStorage.setItem('token', res.data.token);
+			const token = await AsyncStorage.getItem('token');
+			console.log(token);
 			this.props.navigation.navigate('Action');
 		})
 		.catch( error => {
@@ -35,12 +37,6 @@ class LogIn extends Component {
 
 		return (
 			<View style={{flex: 1}}>
-				{/* <View>
-					{persons.map( person => 
-						<Text key={person.id}>{person.username}</Text>
-					)}
-				</View> */}
-			
 				<View style={styles.inputStyle}>
 					<Form>
 						<Item floatingLabel>

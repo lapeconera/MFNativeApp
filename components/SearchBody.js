@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {ScrollView,Text,View} from 'react-native';
 import ToDoStore from '../ToDoStore';
 
-class SearchBody extends React.Component{
-    render(){
+class SearchBody extends Component {
+    render() {
         let actions = this.props.data;
         if (!actions){
             return <View/>
